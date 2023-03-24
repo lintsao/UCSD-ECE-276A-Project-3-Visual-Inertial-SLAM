@@ -78,12 +78,12 @@ def compare_result(pose,slam_pose,landmarks,slam_landmarks,path_name="Unknown",s
     '''
     fig,ax = plt.subplots(figsize=(5,5))
     n_pose = pose.shape[2]
-    ax.plot(pose[0,3,:],pose[1,3,:],'r-',label='orig')
-    ax.plot(slam_pose[0,3,:],slam_pose[1,3,:],'b-',label='slam')
+    ax.plot(pose[0,3,:],pose[1,3,:],'r-',label='original path')
+    ax.plot(slam_pose[0,3,:],slam_pose[1,3,:],'b-',label='slam path')
     ax.scatter(pose[0,3,0],pose[1,3,0],marker='s',label="start")
     ax.scatter(pose[0,3,-1],pose[1,3,-1],marker='o',label="end")
-    ax.scatter(landmarks[:,0],landmarks[:,1],s=2, marker='o',label="landmarks")
-    ax.scatter(slam_landmarks[:,0],slam_landmarks[:,1],s=2, marker='o',label="slam_landmarks")
+    ax.scatter(landmarks[:,0],landmarks[:,1],s=2, marker='o',label="landmarks points")
+    ax.scatter(slam_landmarks[:,0],slam_landmarks[:,1],s=2, marker='o',label="slam_landmarks points")
     if show_ori:
         select_ori_index = list(range(0,n_pose,int(n_pose/50)))
         yaw_list = []
@@ -100,6 +100,7 @@ def compare_result(pose,slam_pose,landmarks,slam_landmarks,path_name="Unknown",s
     ax.axis('equal')
     ax.grid(False)
     ax.legend()
-    plt.savefig("compare.png", dpi=150)
+    print(path_name)
+    plt.savefig(path_name, dpi=150)
     plt.show(block=True)
     return fig, ax

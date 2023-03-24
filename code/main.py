@@ -11,12 +11,15 @@ if __name__ == '__main__':
 	t, features, linear_velocity, angular_velocity, K, b, cam_T_imu = load_data(filename)
 
 	# IMU Localization via EKF Prediction
+
+	# Sample features.
 	step = 20
 	sampled_features = np.zeros((4, int(features.shape[1]/step)+1, features.shape[2]))
 	for i, idx in enumerate(range(0, int(features.shape[1]), step)):
 		sampled_features[:,i,:] = features[:,idx,:]
 
 	print(sampled_features.shape)
+	
 	i_T_w, w_T_i = motion_model_prediction(t, linear_velocity, angular_velocity, w_scale=10e-7)
 
 	# Landmark Mapping via EKF Update
